@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DummyModel::VERSION
   spec.authors       = ["Suman Mukherjee"]
   spec.email         = ["sumanmukherjee03@gmail.com"]
-  spec.description   = %q{A gem that makes your class behave like models}
-  spec.summary       = %q{Makes your class behave like models}
+  spec.description   = %q{A gem that makes your pure old ruby classes behave like models}
+  spec.summary       = %q{Makes your pure old ruby class behave like models}
   spec.homepage      = "http://github.com/sumanmukherjee03/dummy_model"
   spec.license       = "MIT"
 
