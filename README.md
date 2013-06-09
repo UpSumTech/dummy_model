@@ -2,8 +2,7 @@
 
 A gem that makes your pure old ruby classes behave like Rails models.
 
-## Build status
-
+[![Gem Version](https://badge.fury.io/rb/dummy_model.png)](http://badge.fury.io/rb/dummy_model)
 [![Build Status](https://travis-ci.org/sumanmukherjee03/dummy_model.png)](https://travis-ci.org/sumanmukherjee03/dummy_model)
 [![Code Climate](https://codeclimate.com/github/sumanmukherjee03/dummy_model.png)](https://codeclimate.com/github/sumanmukherjee03/dummy_model)
 [![Dependency Status](https://gemnasium.com/sumanmukherjee03/dummy_model.png)](https://gemnasium.com/sumanmukherjee03/dummy_model)
