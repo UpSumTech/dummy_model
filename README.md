@@ -5,6 +5,10 @@ A gem that makes your pure old ruby classes behave like Rails models.
 ## Build status
 
 [![Build Status](https://travis-ci.org/sumanmukherjee03/dummy_model.png)](https://travis-ci.org/sumanmukherjee03/dummy_model)
+[![Code Climate](https://codeclimate.com/github/sumanmukherjee03/dummy_model.png)](https://codeclimate.com/github/sumanmukherjee03/dummy_model)
+[![Dependency Status](https://gemnasium.com/sumanmukherjee03/dummy_model.png)](https://gemnasium.com/sumanmukherjee03/dummy_model)
+[![Coverage Status](https://coveralls.io/repos/sumanmukherjee03/dummy_model/badge.png)](https://coveralls.io/r/sumanmukherjee03/dummy_model)
+
 
 ## Installation
 
