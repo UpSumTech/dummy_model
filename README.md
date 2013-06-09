@@ -21,23 +21,76 @@ Or install it yourself as:
     $ gem install dummy_model
 
 ## Usage
-
+To make your pure old ruby class behave like a Rails model you must include the DummyModel module in your class.
+You can define the attributes for your object using the class level attribute method.
+The attribute method comes from the Virtus gem.
+So, all operations defined in Virtus are supported.
+You can also provide Rails like validations for your attributes / object.
 ```ruby
-  class DummyModel
-    include DummyModel::Imitable
+  class Article
+    include DummyModel
 
     attribute :name, String
 
     validates :name, :presence => true
   end
-
-  dummy_1 = DummyModel.new(:name => 'foo')
-  dummy_1.save # true
-  dummy_2 = Dummy.create(:name => 'foo')
-  dummy_2 == dummy_1 # true
-
-  # supports save! and create! and before/after callbacks for save
 ```
+There is a _save method which you can override to provide a custom save behavior for your class.
+The ```Article#_save``` method must return a boolean value. For example:
+```ruby
+def _save
+  file_name = "#{name}.txt"
+  size = 0
+  if File.exists?(file_name)
+    file = File.open(file_name, 'w+')
+    size = file.size
+  else
+    file = File.new(file_name, 'w')
+  end
+  file.puts "Name : #{name}"
+  result = file.size > size
+  file.close
+  result
+end
+```
+The _save method is called only if the object is valid.
+
+Now you can initialize a new article like you initialize Rails models.
+```ruby
+article = Article.new(:name => 'foo')
+```
+You can also your article.
+The ```Article#save``` method returns a boolean value.
+```ruby
+article.save # true
+```
+You can also call ```Article#save!``` method.
+If the record is valid and it got saved this returns true.
+This raises an exception if the article is not valid.
+```ruby
+Article.new(:name => 'foo').save! # true
+Article.new.save! # raises DummyModel::RecordInvalid : Name can't be blank
+```
+You can call ```Article.create``` to create an Article.
+It returns the article object.
+```ruby
+Article.create(:name => 'foo') # returns an Article object
+```
+You can also call ```Article.create!``` to create an Article.
+It raises an error is the validations fail.
+```ruby
+Article.create!(:name => 'foo') # returns an Article object
+Article.create! # raises DummyModel::RecordInvalid : Name can't be blank
+```
+Articles can be checked for equality.
+The equality check checks for equality of attributes and not object_id
+```ruby
+article = Article.new(:name => 'foo')
+article.save
+article == Article.create(:name => 'foo') # true
+```
+Apart from this, you can define before_save and after_save callbacks.
+The before_save/after_save callbacks run before/after before save and create.
 
 ## Contributing
 
@@ -53,21 +106,5 @@ Copyright (c) 2013 Suman Mukherjee
 
 MIT License
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+For more information on license, please look at LICENSE.txt
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
